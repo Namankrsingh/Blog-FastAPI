@@ -11,33 +11,6 @@ router = APIRouter(
     tags=["Blogs"]
 )
 
-# @router.post("/", response_model=schemas.BlogResponse)
-# def create_blog(
-#     title: str = Form(...),
-#     content: str = Form(...),
-#     file: UploadFile = File(None),
-#     db: Session = Depends(get_db),
-#     current_user: int = Depends(oauth2.get_current_user),
-# ):
-#     media_path = None
-#     if file:
-#         file_location = f"media/{file.filename}"
-#         with open(file_location, "wb+") as file_object:
-#             file_object.write(file.file.read())
-#         media_path = file_location
- 
-#         media_path = f"http://localhost:8000/media/{file.filename}"
-#     new_blog = models.Blog(
-#         title=title,
-#         content=content,
-#         media_url=media_path,
-#         user_id=current_user.id
-#     )
-#     db.add(new_blog)
-#     db.commit()
-#     db.refresh(new_blog)
-#     return new_blog
-
 @router.post("/", response_model=schemas.BlogResponse)
 def create_blog(
     title: str = Form(...),
