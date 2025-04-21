@@ -3,11 +3,15 @@ from fastapi.security import OAuth2PasswordBearer
 from jose import JWTError, jwt
 from app import schemas, database, models
 from sqlalchemy.orm import Session
+import os
+from dotenv import load_dotenv
 
+load_dotenv()
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="users/login")  
 
-SECRET_KEY = "Naman123"
-ALGORITHM = "HS256"
+SECRET_KEY = os.getenv("SECRET_KEY")
+ALGORITHM = os.getenv("ALGORITHM")
+ACCESS_TOKEN_EXPIRE_MINUTES = int(os.getenv("ACCESS_TOKEN_EXPIRE_MINUTES"))
 
 def get_current_user(token: str = Depends(oauth2_scheme), db: Session = Depends(database.get_db)):
     credentials_exception = HTTPException(
